@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="fFe-sg-02B">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Document Search View Controller-->
+        <scene sceneID="LBV-uq-ttb">
+            <objects>
+                <viewController id="9Ij-yL-yFJ" customClass="DocumentSearchViewController" customModule="Particle_Box" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="5nS-cZ-VJY">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="gWX-wg-C6V">
+                                <rect key="frame" x="0.0" y="64" width="375" height="56"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </searchBar>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="fk7-dw-VCR">
+                                <rect key="frame" x="37" y="132" width="300" height="29"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="300" id="L16-bL-Mhp"/>
+                                </constraints>
+                                <segments>
+                                    <segment title="Device"/>
+                                    <segment title="User"/>
+                                    <segment title="Product"/>
+                                </segments>
+                            </segmentedControl>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Jsa-DY-q02">
+                                <rect key="frame" x="0.0" y="172" width="375" height="495"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" id="9dV-Rc-i4R">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="9dV-Rc-i4R" id="c8C-eD-YXd">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="9Ij-yL-yFJ" id="Wd0-2B-piP"/>
+                                    <outlet property="delegate" destination="9Ij-yL-yFJ" id="rpa-nO-p20"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="gWX-wg-C6V" firstAttribute="trailing" secondItem="yZO-WA-ccm" secondAttribute="trailing" id="48A-ab-e7m"/>
+                            <constraint firstItem="Jsa-DY-q02" firstAttribute="bottom" secondItem="yZO-WA-ccm" secondAttribute="bottom" id="CDE-wp-hCL"/>
+                            <constraint firstItem="gWX-wg-C6V" firstAttribute="top" secondItem="yZO-WA-ccm" secondAttribute="top" id="Oa7-Gp-D9R"/>
+                            <constraint firstItem="gWX-wg-C6V" firstAttribute="leading" secondItem="yZO-WA-ccm" secondAttribute="leading" id="WQg-y0-LOg"/>
+                            <constraint firstItem="Jsa-DY-q02" firstAttribute="top" secondItem="fk7-dw-VCR" secondAttribute="bottom" constant="12" id="f1t-9W-Kf8"/>
+                            <constraint firstItem="fk7-dw-VCR" firstAttribute="centerX" secondItem="5nS-cZ-VJY" secondAttribute="centerX" id="mdR-W0-7eH"/>
+                            <constraint firstItem="fk7-dw-VCR" firstAttribute="top" secondItem="gWX-wg-C6V" secondAttribute="bottom" constant="12" id="q0u-9L-7Fo"/>
+                            <constraint firstItem="Jsa-DY-q02" firstAttribute="trailing" secondItem="yZO-WA-ccm" secondAttribute="trailing" id="rcS-wa-3dc"/>
+                            <constraint firstItem="Jsa-DY-q02" firstAttribute="leading" secondItem="yZO-WA-ccm" secondAttribute="leading" id="tYa-0F-9r8"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="yZO-WA-ccm"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="ddy-oE-hqg"/>
+                    <connections>
+                        <outlet property="scopeSegmentedControl" destination="fk7-dw-VCR" id="aom-zK-dTm"/>
+                        <outlet property="searchBar" destination="gWX-wg-C6V" id="SNN-4E-DBK"/>
+                        <outlet property="tableView" destination="Jsa-DY-q02" id="aam-XP-MHQ"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xGK-6v-kDN" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="68" y="-135.38230884557723"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="08q-yg-otC">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="fFe-sg-02B" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Diu-rr-8Oy">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="9Ij-yL-yFJ" kind="relationship" relationship="rootViewController" id="tCd-G2-93W"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="TBe-Ci-Vcb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-748" y="-135"/>
+        </scene>
+    </scenes>
+</document>
