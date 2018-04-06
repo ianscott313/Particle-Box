@@ -13,12 +13,12 @@ import UIKit
 
 protocol DocumentSearchPresenterInput
 {
-
+    func updateDataSource(documents: [BoxDocument])
 }
 
 protocol DocumentSearchPresenterOutput: class
 {
-
+    func presentNewDocuments(documents: [BoxDocument])
 }
 
 class DocumentSearchPresenter: DocumentSearchPresenterInput
@@ -27,5 +27,8 @@ class DocumentSearchPresenter: DocumentSearchPresenterInput
     
     // MARK: Presentation logic
     
+    func updateDataSource(documents: [BoxDocument]) {
+        output.presentNewDocuments(documents: documents)
+    }
 
 }

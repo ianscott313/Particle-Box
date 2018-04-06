@@ -13,16 +13,17 @@ import UIKit
 
 protocol DocumentSearchViewControllerInput
 {
-
+    func presentNewDocuments(documents: [BoxDocument])
 }
 
 protocol DocumentSearchViewControllerOutput
 {
-
+    func getDocuments(scope: BoxDocumentScope, deviceId: String?, productId: Int?, filter: String?, page: Int?, perPage: Int?)
 }
 
 class DocumentSearchViewController: UIViewController, DocumentSearchViewControllerInput, UITableViewDelegate, UITableViewDataSource
 {
+    
     var output: DocumentSearchViewControllerOutput!
     var router: DocumentSearchRouter!
     
@@ -56,16 +57,21 @@ class DocumentSearchViewController: UIViewController, DocumentSearchViewControll
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        self.title = "Documents"
+        output.getDocuments(scope: .device, deviceId: nil, productId: nil, filter: nil, page: nil, perPage: nil)
     }
     
     // MARK: tableView datasource
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return self.documents.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell")
+        let doc = documents[indexPath.row]
+        cell?.textLabel?.text = doc.key
+        cell?.detailTextLabel?.text = doc.value
         return cell!
     }
     
@@ -73,5 +79,13 @@ class DocumentSearchViewController: UIViewController, DocumentSearchViewControll
 
 
     // MARK: Event handling
+    
+    func presentNewDocuments(documents: [BoxDocument]) {
+        self.documents = documents
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
+
+    }
 
 }

@@ -13,21 +13,31 @@ import UIKit
 
 protocol DocumentSearchInteractorInput
 {
-
+    func getDocuments(scope: BoxDocumentScope, deviceId: String?, productId: Int?, filter: String?, page: Int?, perPage: Int?)
+    
+    
 }
 
 protocol DocumentSearchInteractorOutput
 {
-
+    func updateDataSource(documents: [BoxDocument])
 }
 
 class DocumentSearchInteractor: DocumentSearchInteractorInput
 {
+    
     var output: DocumentSearchInteractorOutput!
     var worker = DocumentSearchWorker()
     
         
     // MARK: Business logic
     
+    func getDocuments(scope: BoxDocumentScope, deviceId: String?, productId: Int?, filter: String?, page: Int?, perPage: Int?) {
+        BoxAPIService().getDocuments(scope: scope, deviceId: deviceId, productId: productId, filter: filter, page: page) { (documents, error) in
+            if documents != nil {
+                self.output.updateDataSource(documents: documents!)
+            }
+        }
+    }
 
 }
