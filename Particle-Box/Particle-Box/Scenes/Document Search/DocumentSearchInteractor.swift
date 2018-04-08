@@ -13,14 +13,13 @@ import UIKit
 
 protocol DocumentSearchInteractorInput
 {
-    func getDocuments(scope: BoxDocumentScope, deviceId: String?, productId: Int?, filter: String?, page: Int?, perPage: Int?)
-    
-    
+    func getDocuments(filter: BoxDocumentSearchFilter)
 }
 
 protocol DocumentSearchInteractorOutput
 {
     func updateDataSource(documents: [BoxDocument])
+    func createAlert(_ message: String)
 }
 
 class DocumentSearchInteractor: DocumentSearchInteractorInput
@@ -32,8 +31,13 @@ class DocumentSearchInteractor: DocumentSearchInteractorInput
         
     // MARK: Business logic
     
-    func getDocuments(scope: BoxDocumentScope, deviceId: String?, productId: Int?, filter: String?, page: Int?, perPage: Int?) {
-        BoxAPIService().getDocuments(scope: scope, deviceId: deviceId, productId: productId, filter: filter, page: page) { (documents, error) in
+    func getDocuments(filter: BoxDocumentSearchFilter) {
+        BoxAPIService().getDocuments(filter: filter) { (documents, error) in
+            guard error == nil else {
+                self.output.createAlert((error?.localizedDescription)!)
+                return
+            }
+            
             if documents != nil {
                 self.output.updateDataSource(documents: documents!)
             }

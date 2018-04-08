@@ -22,27 +22,32 @@
                                 <rect key="frame" x="0.0" y="64" width="375" height="56"/>
                                 <textInputTraits key="textInputTraits"/>
                             </searchBar>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="fk7-dw-VCR">
-                                <rect key="frame" x="37" y="132" width="300" height="29"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="300" id="L16-bL-Mhp"/>
-                                </constraints>
-                                <segments>
-                                    <segment title="Device"/>
-                                    <segment title="User"/>
-                                    <segment title="Product"/>
-                                </segments>
-                            </segmentedControl>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Jsa-DY-q02">
-                                <rect key="frame" x="0.0" y="172" width="375" height="495"/>
+                                <rect key="frame" x="0.0" y="120" width="375" height="547"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" id="9dV-Rc-i4R">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" textLabel="DF4-73-b0Q" detailTextLabel="Wed-2F-F48" style="IBUITableViewCellStyleSubtitle" id="9dV-Rc-i4R">
                                         <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="9dV-Rc-i4R" id="c8C-eD-YXd">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="DF4-73-b0Q">
+                                                    <rect key="frame" x="15" y="5" width="33.5" height="20.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Wed-2F-F48">
+                                                    <rect key="frame" x="15" y="25.5" width="44" height="14.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </prototypes>
@@ -58,24 +63,27 @@
                             <constraint firstItem="Jsa-DY-q02" firstAttribute="bottom" secondItem="yZO-WA-ccm" secondAttribute="bottom" id="CDE-wp-hCL"/>
                             <constraint firstItem="gWX-wg-C6V" firstAttribute="top" secondItem="yZO-WA-ccm" secondAttribute="top" id="Oa7-Gp-D9R"/>
                             <constraint firstItem="gWX-wg-C6V" firstAttribute="leading" secondItem="yZO-WA-ccm" secondAttribute="leading" id="WQg-y0-LOg"/>
-                            <constraint firstItem="Jsa-DY-q02" firstAttribute="top" secondItem="fk7-dw-VCR" secondAttribute="bottom" constant="12" id="f1t-9W-Kf8"/>
-                            <constraint firstItem="fk7-dw-VCR" firstAttribute="centerX" secondItem="5nS-cZ-VJY" secondAttribute="centerX" id="mdR-W0-7eH"/>
-                            <constraint firstItem="fk7-dw-VCR" firstAttribute="top" secondItem="gWX-wg-C6V" secondAttribute="bottom" constant="12" id="q0u-9L-7Fo"/>
                             <constraint firstItem="Jsa-DY-q02" firstAttribute="trailing" secondItem="yZO-WA-ccm" secondAttribute="trailing" id="rcS-wa-3dc"/>
                             <constraint firstItem="Jsa-DY-q02" firstAttribute="leading" secondItem="yZO-WA-ccm" secondAttribute="leading" id="tYa-0F-9r8"/>
+                            <constraint firstItem="Jsa-DY-q02" firstAttribute="top" secondItem="gWX-wg-C6V" secondAttribute="bottom" id="yWn-EN-N89"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="yZO-WA-ccm"/>
                     </view>
-                    <navigationItem key="navigationItem" id="ddy-oE-hqg"/>
+                    <navigationItem key="navigationItem" id="ddy-oE-hqg">
+                        <barButtonItem key="rightBarButtonItem" title="Filter" id="XYZ-61-GJP">
+                            <connections>
+                                <action selector="filterPressed:" destination="9Ij-yL-yFJ" id="kFn-74-qc3"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
-                        <outlet property="scopeSegmentedControl" destination="fk7-dw-VCR" id="aom-zK-dTm"/>
                         <outlet property="searchBar" destination="gWX-wg-C6V" id="SNN-4E-DBK"/>
                         <outlet property="tableView" destination="Jsa-DY-q02" id="aam-XP-MHQ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xGK-6v-kDN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="68" y="-135.38230884557723"/>
+            <point key="canvasLocation" x="229.59999999999999" y="-148.87556221889056"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="08q-yg-otC">
@@ -93,7 +101,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TBe-Ci-Vcb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-748" y="-135"/>
+            <point key="canvasLocation" x="-553" y="-149"/>
         </scene>
     </scenes>
 </document>

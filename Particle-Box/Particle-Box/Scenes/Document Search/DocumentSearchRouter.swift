@@ -22,6 +22,11 @@ class DocumentSearchRouter: DocumentSearchRouterInput
     
     // MARK: Navigation
     
-
+    func showSearchFilter() {
+        let filterVC = DocumentSearchFilterViewController.storyboardInstance()
+        filterVC?.currentFilter = viewController.searchFilter
+        let navController = UINavigationController(rootViewController: filterVC!)
+        viewController.navigationController?.present(navController, animated: true, completion: nil)
+    }
 
 }

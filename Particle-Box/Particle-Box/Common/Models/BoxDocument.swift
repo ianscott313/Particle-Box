@@ -13,6 +13,7 @@ enum BoxDocumentScope: String {
     case device = "device"
     case user = "user"
     case product = "product"
+    case none = ""
 }
 
 class BoxDocument: NSObject {
@@ -39,13 +40,23 @@ class BoxDocument: NSObject {
             self.scope = BoxDocumentScope(rawValue: (dictionary["scope"] as? String)!)
         }
         
-        if dictionary["deviceId"] != nil {
+        if dictionary["device_id"] != nil {
             self.deviceId = (dictionary["device_id"] as? String)!
         }
         
-        if dictionary["productId"] != nil {
+        if dictionary["product_id"] != nil {
             self.productId = (dictionary["product_id"] as? Int)!
         }
+        
+        if dictionary["updated_at"] != nil {
+            let dateString = (dictionary["updated_at"] as? String)!
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+            dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+            self.updatedAt = dateFormatter.date(from:dateString)!
+        }
+        
+        
         
     }
     

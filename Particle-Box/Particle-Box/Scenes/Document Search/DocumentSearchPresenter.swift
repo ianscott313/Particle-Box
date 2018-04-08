@@ -14,11 +14,13 @@ import UIKit
 protocol DocumentSearchPresenterInput
 {
     func updateDataSource(documents: [BoxDocument])
+    func createAlert(_ message: String)
 }
 
 protocol DocumentSearchPresenterOutput: class
 {
     func presentNewDocuments(documents: [BoxDocument])
+    func presentAlert(_ alert: UIAlertController)
 }
 
 class DocumentSearchPresenter: DocumentSearchPresenterInput
@@ -29,6 +31,12 @@ class DocumentSearchPresenter: DocumentSearchPresenterInput
     
     func updateDataSource(documents: [BoxDocument]) {
         output.presentNewDocuments(documents: documents)
+    }
+    
+    func createAlert(_ message: String) {
+        let alert = UIAlertController(title: "Alert", message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Okay", style: .default, handler: nil))
+        output.presentAlert(alert)
     }
 
 }

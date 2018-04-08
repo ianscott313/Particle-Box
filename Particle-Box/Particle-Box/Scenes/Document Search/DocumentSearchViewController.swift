@@ -14,11 +14,12 @@ import UIKit
 protocol DocumentSearchViewControllerInput
 {
     func presentNewDocuments(documents: [BoxDocument])
+    func presentAlert(_ alert: UIAlertController)
 }
 
 protocol DocumentSearchViewControllerOutput
 {
-    func getDocuments(scope: BoxDocumentScope, deviceId: String?, productId: Int?, filter: String?, page: Int?, perPage: Int?)
+    func getDocuments(filter: BoxDocumentSearchFilter)
 }
 
 class DocumentSearchViewController: UIViewController, DocumentSearchViewControllerInput, UITableViewDelegate, UITableViewDataSource
@@ -28,12 +29,11 @@ class DocumentSearchViewController: UIViewController, DocumentSearchViewControll
     var router: DocumentSearchRouter!
     
     var documents = [BoxDocument]()
-    var selectedScope = BoxDocumentScope.device
+    var searchFilter = BoxDocumentSearchFilter()
     
     // MARK: Interface builder elements
     
     @IBOutlet weak var searchBar: UISearchBar!
-    @IBOutlet weak var scopeSegmentedControl: UISegmentedControl!
     @IBOutlet weak var tableView: UITableView!
     
     static func storyboardInstance() -> DocumentSearchViewController? {
@@ -58,7 +58,11 @@ class DocumentSearchViewController: UIViewController, DocumentSearchViewControll
     {
         super.viewDidLoad()
         self.title = "Documents"
-        output.getDocuments(scope: .device, deviceId: nil, productId: nil, filter: nil, page: nil, perPage: nil)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        self.performSearch()
     }
     
     // MARK: tableView datasource
@@ -74,11 +78,26 @@ class DocumentSearchViewController: UIViewController, DocumentSearchViewControll
         cell?.detailTextLabel?.text = doc.value
         return cell!
     }
+
     
     // MARK: tableView delegate
-
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
 
     // MARK: Event handling
+    
+    
+    @IBAction func filterPressed(_ sender: Any) {
+        router.showSearchFilter()
+    }
+    
+    func performSearch() {
+        output.getDocuments(filter: searchFilter)
+    }
+    
+    // MARK: View updates
     
     func presentNewDocuments(documents: [BoxDocument]) {
         self.documents = documents
@@ -87,5 +106,10 @@ class DocumentSearchViewController: UIViewController, DocumentSearchViewControll
         }
 
     }
+    
+    func presentAlert(_ alert: UIAlertController) {
+        self.present(alert, animated: true, completion: nil)
+    }
+
 
 }
