@@ -169,7 +169,13 @@ class DocumentSearchFilterViewController: UIViewController, DocumentSearchFilter
     }
     
     @IBAction func clearPressed(_ sender: Any) {
-        currentFilter = BoxDocumentSearchFilter()
+        let resetFilter = BoxDocumentSearchFilter()
+        currentFilter.deviceId = resetFilter.deviceId
+        currentFilter.productId = resetFilter.productId
+        currentFilter.filter = resetFilter.filter
+        currentFilter.page = resetFilter.page
+        currentFilter.perPage = resetFilter.perPage
+        currentFilter.scope = resetFilter.scope
         router.dismiss()
     }
     

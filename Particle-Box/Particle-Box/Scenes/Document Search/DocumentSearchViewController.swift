@@ -16,12 +16,14 @@ protocol DocumentSearchViewControllerInput
 {
     func presentNewDocuments(documents: [BoxDocument])
     func presentAlert(_ alert: UIAlertController)
+    func deleteDocument(document: BoxDocument)
 }
 
 protocol DocumentSearchViewControllerOutput
 {
     func getDocuments(filter: BoxDocumentSearchFilter)
     func getDocument(key: String, filter: BoxDocumentSearchFilter)
+    func deleteDocument(document: BoxDocument)
 }
 
 class DocumentSearchViewController: UIViewController, DocumentSearchViewControllerInput, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate
@@ -33,6 +35,8 @@ class DocumentSearchViewController: UIViewController, DocumentSearchViewControll
     var documents = [BoxDocument]()
     var filteredDocuments = [BoxDocument]()
     var searchFilter = BoxDocumentSearchFilter()
+    private let refreshControl = UIRefreshControl()
+
     
     // MARK: Interface builder elements
     
@@ -61,6 +65,13 @@ class DocumentSearchViewController: UIViewController, DocumentSearchViewControll
     {
         super.viewDidLoad()
         self.title = "Documents"
+        
+        if #available(iOS 10.0, *) {
+            tableView.refreshControl = refreshControl
+        } else {
+            tableView.addSubview(refreshControl)
+        }
+        refreshControl.addTarget(self, action: #selector(performSearch), for: .valueChanged)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -87,6 +98,18 @@ class DocumentSearchViewController: UIViewController, DocumentSearchViewControll
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if (editingStyle == UITableViewCellEditingStyle.delete) {
+            SwiftSpinner.show("Deleting document...")
+            let docToDelete = self.filteredDocuments[indexPath.row]
+            self.output.deleteDocument(document: docToDelete)
+        }
     }
     
     
@@ -117,13 +140,15 @@ class DocumentSearchViewController: UIViewController, DocumentSearchViewControll
         router.showSearchFilter()
     }
     
-    func performSearch() {
+    @objc func performSearch() {
         if (searchBar.text?.isEmpty)! {
             output.getDocuments(filter: searchFilter)
         } else {
             output.getDocument(key: searchBar.text!, filter: searchFilter)
         }
-        SwiftSpinner.show("Retrieving documents...")
+        if !self.refreshControl.isRefreshing {
+            SwiftSpinner.show("Retrieving documents...")
+        }
     }
     
     // MARK: View updates
@@ -134,12 +159,28 @@ class DocumentSearchViewController: UIViewController, DocumentSearchViewControll
         self.filteredDocuments = documents
         DispatchQueue.main.async {
             self.tableView.reloadData()
+            self.refreshControl.endRefreshing()
         }
     }
     
     func presentAlert(_ alert: UIAlertController) {
         SwiftSpinner.hide()
         self.present(alert, animated: true, completion: nil)
+    }
+    
+    func deleteDocument(document: BoxDocument) {
+        let index = self.documents.index(of: document)
+        self.documents.remove(at: index!)
+        let filteredIndex = self.filteredDocuments.index(of: document)
+        self.filteredDocuments.remove(at: filteredIndex!)
+        DispatchQueue.main.async {
+            self.tableView.beginUpdates()
+            let indexPath = IndexPath(row: filteredIndex!, section: 0)
+            self.tableView.deleteRows(at: [indexPath], with: .automatic)
+            self.tableView.endUpdates()
+        }
+        SwiftSpinner.hide()
+
     }
 
 
