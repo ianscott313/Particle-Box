@@ -7,6 +7,7 @@
 //
 
 import XCTest
+import Mockingjay
 @testable import Particle_Box
 
 class Particle_BoxTests: XCTestCase {
@@ -21,16 +22,89 @@ class Particle_BoxTests: XCTestCase {
         super.tearDown()
     }
     
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+    func testGetDocuments() {
+        let body = [ "data": "test" ]
+        stub(everything, json(body))
+        
+        let expectation = self.expectation(description: "testGetDocuments")
+        
+        let service = BoxAPIService()
+        let filter = BoxDocumentSearchFilter()
+        
+        
+        service.getDocuments(filter: filter) { (documents, error) in
+            expectation.fulfill()
+        }
+        
+        waitForExpectations(timeout: 1) { error in
+            XCTAssertNil(error)
+        }
     }
     
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
+    func testGetDocumentByKey() {
+        let body = [ "data": "test" ]
+        stub(everything, json(body))
+        
+        let expectation = self.expectation(description: "testGetDocuments")
+        
+        let service = BoxAPIService()
+        let filter = BoxDocumentSearchFilter()
+        
+        service.getDocument(key: "Test", filter: filter) { (document, error) in
+            expectation.fulfill()
         }
+        
+        waitForExpectations(timeout: 1) { error in
+            XCTAssertNil(error)
+        }
+    }
+    
+    func testDeleteDocumentByKey() {
+
+        stub(everything, http(204))
+        
+        let expectation = self.expectation(description: "testGetDocuments")
+        
+        let service = BoxAPIService()
+        let document = BoxDocument()
+        
+        service.deleteDocument(document: document) { (response, error) in
+            expectation.fulfill()
+        }
+        
+        waitForExpectations(timeout: 1) { error in
+            XCTAssertNil(error)
+        }
+    }
+    
+    func testCreateNewDocument() {
+        
+        stub(everything, http(201))
+        
+        let expectation = self.expectation(description: "testGetDocuments")
+        
+        let service = BoxAPIService()
+        let document = BoxDocument()
+        
+        service.createDocument(document: document) { (response, error) in
+            expectation.fulfill()
+        }
+        
+        waitForExpectations(timeout: 1) { error in
+            XCTAssertNil(error)
+        }
+    }
+    
+    func testIsDocumentDataValid() {
+        let document = BoxDocument()
+        document.scope = .device
+        document.key = "test"
+        document.value = "100"
+        document.deviceId = "123"
+        document.productId = 123
+        
+        let interactor = CreateDocumentInteractor()
+        XCTAssertTrue(interactor.isDocumentDataValid(document: document))
     }
     
 }
