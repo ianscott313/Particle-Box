@@ -101,4 +101,38 @@ class BoxAPIService: NSObject {
             
             }.resume()
     }
+    
+    func deleteDocument(document: BoxDocument,
+                        completion: @escaping (_ responseCode: Int?, _ error: Error?) -> ()) {
+        
+        var urlString = "\(baseURL)/\(document.key)"
+        
+        if document.scope != .none {
+            if let scope = document.scope?.rawValue {
+                urlString.append("&scope=\(scope)")
+            }
+        }
+        
+        if !document.deviceId.isEmpty {
+            urlString.append("&device_id=\(document.deviceId)")
+        }
+        
+        if document.productId != 0 {
+            urlString.append("&product_id=\(String(describing: document.productId))")
+        }
+        
+        print(urlString)
+        let req = BoxAPIRequest(url: urlString, httpMethod: .delete)
+        URLSession.shared.dataTask(with: req as URLRequest) { (data, response, error) in
+            
+            guard error == nil else {
+                completion(nil, error)
+                return
+            }
+            
+            let r = response as? HTTPURLResponse
+            completion(r?.statusCode, nil)
+            
+            }.resume()
+    }
 }

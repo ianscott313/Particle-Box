@@ -15,12 +15,14 @@ protocol DocumentSearchInteractorInput
 {
     func getDocuments(filter: BoxDocumentSearchFilter)
     func getDocument(key: String, filter: BoxDocumentSearchFilter)
+    func deleteDocument(document: BoxDocument)
 }
 
 protocol DocumentSearchInteractorOutput
 {
     func updateDataSource(documents: [BoxDocument])
     func createAlert(_ message: String)
+    func deleteDocument(document: BoxDocument)
 }
 
 class DocumentSearchInteractor: DocumentSearchInteractorInput
@@ -57,5 +59,32 @@ class DocumentSearchInteractor: DocumentSearchInteractorInput
             }
         }
     }
+    
+    func deleteDocument(document: BoxDocument) {
+        BoxAPIService().deleteDocument(document: document) { (responseCode, error) in
+            guard error == nil else {
+                self.output.createAlert((error?.localizedDescription)!)
+                return
+            }
+            
+            if responseCode != nil {
+                switch responseCode {
+                case 204?:
+                    self.output.deleteDocument(document: document)
+                    break
+                case 400?:
+                    self.output.createAlert("Bad input parameter.")
+                    break
+                case 404?:
+                    self.output.createAlert("No document exists for these criteria.")
+                    break
+                default:
+                    break
+                }
+            }
+        }
+    }
+    
+    
 
 }

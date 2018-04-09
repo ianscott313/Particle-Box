@@ -15,12 +15,14 @@ protocol DocumentSearchPresenterInput
 {
     func updateDataSource(documents: [BoxDocument])
     func createAlert(_ message: String)
+    func deleteDocument(document: BoxDocument)
 }
 
 protocol DocumentSearchPresenterOutput: class
 {
     func presentNewDocuments(documents: [BoxDocument])
     func presentAlert(_ alert: UIAlertController)
+    func deleteDocument(document: BoxDocument)
 }
 
 class DocumentSearchPresenter: DocumentSearchPresenterInput
@@ -37,6 +39,10 @@ class DocumentSearchPresenter: DocumentSearchPresenterInput
         let alert = UIAlertController(title: "Alert", message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Okay", style: .default, handler: nil))
         output.presentAlert(alert)
+    }
+    
+    func deleteDocument(document: BoxDocument) {
+        output.deleteDocument(document: document)
     }
 
 }
