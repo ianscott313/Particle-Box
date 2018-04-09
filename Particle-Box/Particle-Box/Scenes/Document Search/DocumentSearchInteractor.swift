@@ -14,6 +14,7 @@ import UIKit
 protocol DocumentSearchInteractorInput
 {
     func getDocuments(filter: BoxDocumentSearchFilter)
+    func getDocument(key: String, filter: BoxDocumentSearchFilter)
 }
 
 protocol DocumentSearchInteractorOutput
@@ -40,6 +41,19 @@ class DocumentSearchInteractor: DocumentSearchInteractorInput
             
             if documents != nil {
                 self.output.updateDataSource(documents: documents!)
+            }
+        }
+    }
+    
+    func getDocument(key: String, filter: BoxDocumentSearchFilter) {
+        BoxAPIService().getDocument(key: key, filter: filter) { (document, error) in
+            guard error == nil else {
+                self.output.createAlert((error?.localizedDescription)!)
+                return
+            }
+            
+            if document != nil {
+                self.output.updateDataSource(documents: [document!])
             }
         }
     }

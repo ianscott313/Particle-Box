@@ -8,7 +8,7 @@ target 'Particle-Box' do
   # Pods for Particle-Box
 
     pod 'SwiftyJSON'
-
+    pod 'SwiftSpinner'
 
   target 'Particle-BoxTests' do
     inherit! :search_paths
