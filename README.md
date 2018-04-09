@@ -12,9 +12,10 @@ Most of the app was built using Clean Swift Architecture. The very basic documen
 - [x] Swipe to delete a document
 - [x] Basic document detail screen
 - [x] Create documents
+- [x] Unit Tests, stubbed network requests w/ Mockingjay framework
 - [ ] Utilize paging for infinite scroll
-- [ ] More test coverage
 - [ ] Better document detail screen
+- [ ] More test coverage
 
 ### Mock API
 https://app.swaggerhub.com/apis/particle-iot/box/0.1#/
