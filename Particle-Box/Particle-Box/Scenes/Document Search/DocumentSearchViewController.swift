@@ -10,6 +10,7 @@
 //
 
 import UIKit
+import SwiftSpinner
 
 protocol DocumentSearchViewControllerInput
 {
@@ -20,15 +21,17 @@ protocol DocumentSearchViewControllerInput
 protocol DocumentSearchViewControllerOutput
 {
     func getDocuments(filter: BoxDocumentSearchFilter)
+    func getDocument(key: String, filter: BoxDocumentSearchFilter)
 }
 
-class DocumentSearchViewController: UIViewController, DocumentSearchViewControllerInput, UITableViewDelegate, UITableViewDataSource
+class DocumentSearchViewController: UIViewController, DocumentSearchViewControllerInput, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate
 {
     
     var output: DocumentSearchViewControllerOutput!
     var router: DocumentSearchRouter!
     
     var documents = [BoxDocument]()
+    var filteredDocuments = [BoxDocument]()
     var searchFilter = BoxDocumentSearchFilter()
     
     // MARK: Interface builder elements
@@ -68,12 +71,12 @@ class DocumentSearchViewController: UIViewController, DocumentSearchViewControll
     // MARK: tableView datasource
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.documents.count
+        return self.filteredDocuments.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell")
-        let doc = documents[indexPath.row]
+        let doc = filteredDocuments[indexPath.row]
         cell?.textLabel?.text = doc.key
         cell?.detailTextLabel?.text = doc.value
         return cell!
@@ -85,29 +88,57 @@ class DocumentSearchViewController: UIViewController, DocumentSearchViewControll
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
     }
+    
+    
+    // MARK: searchBar delegate
+
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        if !(searchBar.text?.isEmpty)! {
+            self.performSearch()
+        }
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        // filter the already downloaded documents for matching key before sending request
+        if searchText.isEmpty {
+            filteredDocuments = documents
+        } else {
+            filteredDocuments = documents.filter { $0.key.lowercased().contains(searchText.lowercased()) }
+        }
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
+    }
+    
 
     // MARK: Event handling
-    
     
     @IBAction func filterPressed(_ sender: Any) {
         router.showSearchFilter()
     }
     
     func performSearch() {
-        output.getDocuments(filter: searchFilter)
+        if (searchBar.text?.isEmpty)! {
+            output.getDocuments(filter: searchFilter)
+        } else {
+            output.getDocument(key: searchBar.text!, filter: searchFilter)
+        }
+        SwiftSpinner.show("Retrieving documents...")
     }
     
     // MARK: View updates
     
     func presentNewDocuments(documents: [BoxDocument]) {
+        SwiftSpinner.hide()
         self.documents = documents
+        self.filteredDocuments = documents
         DispatchQueue.main.async {
             self.tableView.reloadData()
         }
-
     }
     
     func presentAlert(_ alert: UIAlertController) {
+        SwiftSpinner.hide()
         self.present(alert, animated: true, completion: nil)
     }
 

@@ -65,4 +65,40 @@ class BoxAPIService: NSObject {
         }.resume()
     }
     
+    
+    func getDocument(key: String,
+                     filter: BoxDocumentSearchFilter,
+                     completion: @escaping (_ document: BoxDocument?, _ error: Error?) -> ()) {
+        
+        var urlString = "\(baseURL)/\(key)"
+        
+        if filter.scope != .none {
+            urlString.append("&scope=\(filter.scope.rawValue)")
+        }
+        
+        if let device = filter.deviceId {
+            urlString.append("&device_id=\(device)")
+        }
+        
+        if let product = filter.productId {
+            urlString.append("&product_id=\(String(describing: product))")
+        }
+        
+        print(urlString)
+        let req = BoxAPIRequest(url: urlString, httpMethod: .get)
+        URLSession.shared.dataTask(with: req as URLRequest) { (data, response, error) in
+            
+            guard error == nil else {
+                completion(nil, error)
+                return
+            }
+            
+            if data != nil {
+                let json = try! JSON(data: data!)
+                let doc = BoxDocument(dictionary: json.dictionaryObject! as NSDictionary)
+                completion(doc, nil)
+            }
+            
+            }.resume()
+    }
 }
