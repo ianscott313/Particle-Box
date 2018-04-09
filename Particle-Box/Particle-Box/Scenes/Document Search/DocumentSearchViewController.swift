@@ -98,6 +98,8 @@ class DocumentSearchViewController: UIViewController, DocumentSearchViewControll
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        let doc = filteredDocuments[indexPath.row]
+        router.showDocumentView(document: doc)
     }
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
@@ -140,6 +142,10 @@ class DocumentSearchViewController: UIViewController, DocumentSearchViewControll
         router.showSearchFilter()
     }
     
+    @IBAction func createPressed(_ sender: Any) {
+        router.showCreateDocument()
+    }
+    
     @objc func performSearch() {
         if (searchBar.text?.isEmpty)! {
             output.getDocuments(filter: searchFilter)
@@ -150,6 +156,7 @@ class DocumentSearchViewController: UIViewController, DocumentSearchViewControll
             SwiftSpinner.show("Retrieving documents...")
         }
     }
+    
     
     // MARK: View updates
     

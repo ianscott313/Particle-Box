@@ -25,6 +25,10 @@ class BoxDocument: NSObject {
     var productId = 0
     var updatedAt = Date()
     
+    override init() {
+        super.init()
+    }
+    
     init(dictionary: NSDictionary) {
         super.init()
         

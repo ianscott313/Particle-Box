@@ -73,6 +73,11 @@
                         <viewLayoutGuide key="safeArea" id="yZO-WA-ccm"/>
                     </view>
                     <navigationItem key="navigationItem" id="ddy-oE-hqg">
+                        <barButtonItem key="leftBarButtonItem" title="Create" id="jMW-Nk-20Q">
+                            <connections>
+                                <action selector="createPressed:" destination="9Ij-yL-yFJ" id="FwY-ss-erQ"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Filter" id="XYZ-61-GJP">
                             <connections>
                                 <action selector="filterPressed:" destination="9Ij-yL-yFJ" id="kFn-74-qc3"/>

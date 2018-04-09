@@ -26,7 +26,6 @@ protocol DocumentSearchFilterInteractorOutput
 class DocumentSearchFilterInteractor: DocumentSearchFilterInteractorInput
 {
     var output: DocumentSearchFilterInteractorOutput!
-    var worker = DocumentSearchFilterWorker()
     
         
     // MARK: Business logic
