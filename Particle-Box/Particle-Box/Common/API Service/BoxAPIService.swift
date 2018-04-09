@@ -135,4 +135,43 @@ class BoxAPIService: NSObject {
             
             }.resume()
     }
+    
+    func createDocument(document: BoxDocument,
+                        completion: @escaping (_ responseCode: Int?, _ error: Error?) -> ()) {
+        
+        let urlString = baseURL
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        let date = dateFormatter.string(from: Date())
+        print()
+        
+        var scope = ""
+        if let unwrappedScope = document.scope?.rawValue {
+            scope = unwrappedScope
+        }
+        
+        let json = JSON(["key": document.key,
+                         "value": document.value,
+                         "scope": scope,
+                         "device_id": document.deviceId,
+                         "product_id": String(describing: document.productId),
+                         "updated_at": date])
+        
+        let req = BoxAPIRequest(url: urlString, httpMethod: .post)
+        let rawData = try! json.rawData()
+        req.httpBody = rawData
+        URLSession.shared.dataTask(with: req as URLRequest) { (data, response, error) in
+            
+            guard error == nil else {
+                completion(nil, error)
+                return
+            }
+            
+            let r = response as? HTTPURLResponse
+            completion(r?.statusCode, nil)
+            
+            }.resume()
+    }
 }

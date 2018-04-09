@@ -28,5 +28,17 @@ class DocumentSearchRouter: DocumentSearchRouterInput
         let navController = UINavigationController(rootViewController: filterVC!)
         viewController.navigationController?.present(navController, animated: true, completion: nil)
     }
+    
+    func showCreateDocument() {
+        let createVC = CreateDocumentViewController.storyboardInstance()
+        let navController = UINavigationController(rootViewController: createVC!)
+        viewController.navigationController?.present(navController, animated: true, completion: nil)
+    }
+    
+    func showDocumentView(document: BoxDocument) {
+        let documentVC = DocumentViewController.storyboardInstance()
+        documentVC?.document = document
+        viewController.navigationController?.pushViewController(documentVC!, animated: true)
+    }
 
 }

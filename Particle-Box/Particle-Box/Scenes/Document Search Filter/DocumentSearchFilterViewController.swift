@@ -65,6 +65,7 @@ class DocumentSearchFilterViewController: UIViewController, DocumentSearchFilter
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        self.title = "Filter"
         tableView.tableFooterView = UIView() //Get rid of empty bottom cells
         newFilter = currentFilter.copy() as! BoxDocumentSearchFilter
         self.setupPerPageSegmentedControl()

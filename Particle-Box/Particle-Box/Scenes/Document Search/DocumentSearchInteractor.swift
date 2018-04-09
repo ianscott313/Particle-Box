@@ -28,14 +28,12 @@ protocol DocumentSearchInteractorOutput
 class DocumentSearchInteractor: DocumentSearchInteractorInput
 {
     
-    var output: DocumentSearchInteractorOutput!
-    var worker = DocumentSearchWorker()
-    
+    var output: DocumentSearchInteractorOutput!    
         
     // MARK: Business logic
     
     func getDocuments(filter: BoxDocumentSearchFilter) {
-        BoxAPIService().getDocuments(filter: filter) { (documents, error) in
+        BoxAPIService.shared.getDocuments(filter: filter) { (documents, error) in
             guard error == nil else {
                 self.output.createAlert((error?.localizedDescription)!)
                 return
@@ -48,7 +46,7 @@ class DocumentSearchInteractor: DocumentSearchInteractorInput
     }
     
     func getDocument(key: String, filter: BoxDocumentSearchFilter) {
-        BoxAPIService().getDocument(key: key, filter: filter) { (document, error) in
+        BoxAPIService.shared.getDocument(key: key, filter: filter) { (document, error) in
             guard error == nil else {
                 self.output.createAlert((error?.localizedDescription)!)
                 return
@@ -61,7 +59,7 @@ class DocumentSearchInteractor: DocumentSearchInteractorInput
     }
     
     func deleteDocument(document: BoxDocument) {
-        BoxAPIService().deleteDocument(document: document) { (responseCode, error) in
+        BoxAPIService.shared.deleteDocument(document: document) { (responseCode, error) in
             guard error == nil else {
                 self.output.createAlert((error?.localizedDescription)!)
                 return
