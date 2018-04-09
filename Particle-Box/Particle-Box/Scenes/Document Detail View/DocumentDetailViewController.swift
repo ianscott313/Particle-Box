@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class DocumentViewController: UIViewController {
+class DocumentDetailViewController: UIViewController {
     
     var document = BoxDocument()
     
@@ -23,10 +23,10 @@ class DocumentViewController: UIViewController {
     @IBOutlet weak var updatedAtLabel: UILabel!
     
     
-    static func storyboardInstance() -> DocumentViewController? {
+    static func storyboardInstance() -> DocumentDetailViewController? {
         let storyboard = UIStoryboard(name: String(describing: self),
                                       bundle: nil)
-        return storyboard.instantiateInitialViewController() as? DocumentViewController
+        return storyboard.instantiateInitialViewController() as? DocumentDetailViewController
     }
     
     
@@ -34,7 +34,7 @@ class DocumentViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "Document"
+        self.title = "Details"
         
         keyLabel.text = document.key
         valueLabel.text = document.value

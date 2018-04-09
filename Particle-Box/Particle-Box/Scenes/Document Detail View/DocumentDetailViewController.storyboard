@@ -10,16 +10,16 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Document View Controller-->
+        <!--Document Detail View Controller-->
         <scene sceneID="X6h-Il-NvI">
             <objects>
-                <viewController storyboardIdentifier="DocumentViewController" id="wkQ-8I-8gM" customClass="DocumentViewController" customModule="Particle_Box" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="DocumentViewController" id="wkQ-8I-8gM" customClass="DocumentDetailViewController" customModule="Particle_Box" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="cfm-Qs-sAT">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Eu2-or-XRH">
-                                <rect key="frame" x="16" y="164" width="343" height="290"/>
+                                <rect key="frame" x="16" y="114" width="343" height="280"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Key" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VIQ-15-ccd">
                                         <rect key="frame" x="8" y="8" width="53" height="37"/>
@@ -136,7 +136,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
                                 <constraints>
                                     <constraint firstItem="hVb-J0-PCa" firstAttribute="top" secondItem="bG4-r1-hb8" secondAttribute="bottom" constant="8" id="2t0-2y-I1f"/>
                                     <constraint firstItem="Jbq-81-8Wu" firstAttribute="top" secondItem="hVb-J0-PCa" secondAttribute="bottom" constant="8" id="2uM-Va-ngz"/>
@@ -160,7 +160,7 @@
                                     <constraint firstAttribute="trailing" secondItem="sOo-K6-6Mv" secondAttribute="trailing" constant="8" id="hpa-Z6-Cwh"/>
                                     <constraint firstItem="gIb-YI-gGP" firstAttribute="leading" secondItem="dNX-pH-Sjv" secondAttribute="trailing" constant="8" id="hwS-Br-4QD"/>
                                     <constraint firstItem="R5J-dq-v7v" firstAttribute="leading" secondItem="Eu2-or-XRH" secondAttribute="leading" constant="8" id="k2m-uJ-tli"/>
-                                    <constraint firstAttribute="height" constant="290" id="n1e-aq-vJw"/>
+                                    <constraint firstAttribute="height" constant="280" id="n1e-aq-vJw"/>
                                     <constraint firstItem="Jr7-Ay-xVS" firstAttribute="top" secondItem="Jbq-81-8Wu" secondAttribute="bottom" constant="8" id="oO6-yZ-DlH"/>
                                     <constraint firstItem="bG4-r1-hb8" firstAttribute="leading" secondItem="VIQ-15-ccd" secondAttribute="trailing" constant="8" id="oeO-qv-BxC"/>
                                     <constraint firstItem="Jr7-Ay-xVS" firstAttribute="leading" secondItem="LIz-wE-8fY" secondAttribute="trailing" constant="8" id="tWI-QS-ng6"/>
@@ -170,12 +170,17 @@
                                     <constraint firstAttribute="trailing" secondItem="hVb-J0-PCa" secondAttribute="trailing" constant="8" id="xSd-4c-Nch"/>
                                     <constraint firstItem="3fh-kd-3Nk" firstAttribute="top" secondItem="LIz-wE-8fY" secondAttribute="bottom" constant="8" id="yy3-tf-ho3"/>
                                 </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="Eu2-or-XRH" firstAttribute="leading" secondItem="mPe-Px-3kA" secondAttribute="leading" constant="16" id="2eC-ti-hsc"/>
-                            <constraint firstItem="Eu2-or-XRH" firstAttribute="top" secondItem="mPe-Px-3kA" secondAttribute="top" constant="100" id="oez-7o-1qK"/>
+                            <constraint firstItem="Eu2-or-XRH" firstAttribute="top" secondItem="mPe-Px-3kA" secondAttribute="top" constant="50" id="oez-7o-1qK"/>
                             <constraint firstItem="mPe-Px-3kA" firstAttribute="trailing" secondItem="Eu2-or-XRH" secondAttribute="trailing" constant="16" id="zDL-SB-iEo"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="mPe-Px-3kA"/>

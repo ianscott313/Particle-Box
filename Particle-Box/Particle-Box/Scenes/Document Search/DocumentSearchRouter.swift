@@ -36,7 +36,7 @@ class DocumentSearchRouter: DocumentSearchRouterInput
     }
     
     func showDocumentView(document: BoxDocument) {
-        let documentVC = DocumentViewController.storyboardInstance()
+        let documentVC = DocumentDetailViewController.storyboardInstance()
         documentVC?.document = document
         viewController.navigationController?.pushViewController(documentVC!, animated: true)
     }

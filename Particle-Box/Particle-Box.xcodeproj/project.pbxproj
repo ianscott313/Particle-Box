@@ -35,8 +35,8 @@
 		3C23A98A207B16D200E36B7B /* CreateDocumentRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C23A984207B16D200E36B7B /* CreateDocumentRouter.swift */; };
 		3C23A98B207B16D200E36B7B /* CreateDocumentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C23A985207B16D200E36B7B /* CreateDocumentViewController.swift */; };
 		3C23A98E207B17CD00E36B7B /* CreateDocumentViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3C23A98D207B17CD00E36B7B /* CreateDocumentViewController.storyboard */; };
-		3C23A991207B3A7700E36B7B /* DocumentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C23A990207B3A7700E36B7B /* DocumentViewController.swift */; };
-		3C23A993207B3BB400E36B7B /* DocumentViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3C23A992207B3BB400E36B7B /* DocumentViewController.storyboard */; };
+		3C23A991207B3A7700E36B7B /* DocumentDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C23A990207B3A7700E36B7B /* DocumentDetailViewController.swift */; };
+		3C23A993207B3BB400E36B7B /* DocumentDetailViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3C23A992207B3BB400E36B7B /* DocumentDetailViewController.storyboard */; };
 		55E4ADD8ECCF203746370456 /* Pods_Particle_BoxTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D618197BB06A580DD247CB9 /* Pods_Particle_BoxTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -82,8 +82,8 @@
 		3C23A984207B16D200E36B7B /* CreateDocumentRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateDocumentRouter.swift; sourceTree = "<group>"; };
 		3C23A985207B16D200E36B7B /* CreateDocumentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateDocumentViewController.swift; sourceTree = "<group>"; };
 		3C23A98D207B17CD00E36B7B /* CreateDocumentViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CreateDocumentViewController.storyboard; sourceTree = "<group>"; };
-		3C23A990207B3A7700E36B7B /* DocumentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentViewController.swift; sourceTree = "<group>"; };
-		3C23A992207B3BB400E36B7B /* DocumentViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = DocumentViewController.storyboard; sourceTree = "<group>"; };
+		3C23A990207B3A7700E36B7B /* DocumentDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentDetailViewController.swift; sourceTree = "<group>"; };
+		3C23A992207B3BB400E36B7B /* DocumentDetailViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = DocumentDetailViewController.storyboard; sourceTree = "<group>"; };
 		3D618197BB06A580DD247CB9 /* Pods_Particle_BoxTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Particle_BoxTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F32D6488AE194FFA81D12BC /* Pods_Particle_Box.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Particle_Box.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5F94269499FE227597398AFC /* Pods-Particle-Box.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Particle-Box.release.xcconfig"; path = "Pods/Target Support Files/Pods-Particle-Box/Pods-Particle-Box.release.xcconfig"; sourceTree = "<group>"; };
@@ -200,7 +200,7 @@
 		3C23A9642075916100E36B7B /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
-				3C23A98F207B39F900E36B7B /* Document View */,
+				3C23A98F207B39F900E36B7B /* Document Detail View */,
 				3C23A980207B15A900E36B7B /* Create Document */,
 				3C23A96E207A8EFF00E36B7B /* Document Search Filter */,
 				3C23A95720758F4E00E36B7B /* Document Search */,
@@ -251,13 +251,13 @@
 			path = "Create Document";
 			sourceTree = "<group>";
 		};
-		3C23A98F207B39F900E36B7B /* Document View */ = {
+		3C23A98F207B39F900E36B7B /* Document Detail View */ = {
 			isa = PBXGroup;
 			children = (
-				3C23A992207B3BB400E36B7B /* DocumentViewController.storyboard */,
-				3C23A990207B3A7700E36B7B /* DocumentViewController.swift */,
+				3C23A992207B3BB400E36B7B /* DocumentDetailViewController.storyboard */,
+				3C23A990207B3A7700E36B7B /* DocumentDetailViewController.swift */,
 			);
-			path = "Document View";
+			path = "Document Detail View";
 			sourceTree = "<group>";
 		};
 		BF58ACAF10C56E169F27862D /* Frameworks */ = {
@@ -362,7 +362,7 @@
 				3C23A98E207B17CD00E36B7B /* CreateDocumentViewController.storyboard in Resources */,
 				3C23A93A207585D900E36B7B /* Assets.xcassets in Resources */,
 				3C23A97C207A911B00E36B7B /* DocumentSearchFilterViewController.storyboard in Resources */,
-				3C23A993207B3BB400E36B7B /* DocumentViewController.storyboard in Resources */,
+				3C23A993207B3BB400E36B7B /* DocumentDetailViewController.storyboard in Resources */,
 				3C23A9662075919900E36B7B /* DocumentSearchViewController.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -498,7 +498,7 @@
 				3C23A978207A8F3D00E36B7B /* DocumentSearchFilterRouter.swift in Sources */,
 				3C23A987207B16D200E36B7B /* CreateDocumentConfigurator.swift in Sources */,
 				3C23A977207A8F3D00E36B7B /* DocumentSearchFilterPresenter.swift in Sources */,
-				3C23A991207B3A7700E36B7B /* DocumentViewController.swift in Sources */,
+				3C23A991207B3A7700E36B7B /* DocumentDetailViewController.swift in Sources */,
 				3C23A976207A8F3D00E36B7B /* DocumentSearchFilterInteractor.swift in Sources */,
 				3C23A95E2075901800E36B7B /* DocumentSearchConfigurator.swift in Sources */,
 				3C23A9622075901800E36B7B /* DocumentSearchViewController.swift in Sources */,
